@@ -11,7 +11,7 @@ CREATE DATABASE employees_db
 
 
 
-CREATE TABLE department
+CREATE TABLE departments
 
 id: SERIAL PRIMARY KEY
 

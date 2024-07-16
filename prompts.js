@@ -3,6 +3,20 @@ const { prompt } = require("inquirer");
 //const postgres = require('postgres');
 
 
+// //Syntax for switch statments
+// switch(expression) {
+//     case x:
+//       // code block
+//       break;
+//     case y:
+//       // code block
+//       break;
+//     default:
+//       // code block
+//   }
+
+
+
     prompt([
         {
             type: 'list',
@@ -14,3 +28,7 @@ const { prompt } = require("inquirer");
 
     ])
     .then
+        switch(options) {
+
+
+        }

@@ -1,8 +1,7 @@
-DROP DATABASE IF EXISTS employees_db;
-CREATE DATABASE employees_db;
+
 
 -- Department catagories
-INSERT INTO department (id, name)
+INSERT INTO departments (id, name)
 values
 (1, 'Engineering'),
 (2, 'Finance'),
@@ -10,7 +9,7 @@ values
 (4, 'Sales');
 
 -- Roles
-INSERT roles (id, title, department_id, salary) 
+INSERT INTO roles (id, title, department_id, salary) 
 values
 (1, 'Sales Lead', 4, 100000),
 (2, 'Sales Person', 4, 80000),

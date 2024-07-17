@@ -1,23 +1,22 @@
-const express = require('express');
+// const express = require('express');
+// const { Pool } = require('pg');
 
-const path = require('path');
+// const PORT = port.env.PORT || 3001;
 
-const app = express
 
-const prompt = 3001
+// //middleware
+// application.use(express.urlencoded({ extended: false}));
+// application.use(express.json());
 
-app.use(express.static('public'));
+const pool = new Pool( 
 
-// app.get('/', (req, res) => res.send('Navigare to /send or /routes'));
+    user, 'postgres,',
+    password, '12345',
+    host, 'localhost',
+    database, 'employees_db',
 
-// app.get('/send', (req, res) =>
-//     res.sendFile(path.join(__dirname, 'public/sendFile.html'))
-// );
+    
+console.log('connected to db')
+)
 
-// app.get('/routes', (req, res) =>
-//     res.sendFile(path.join(__dirname, 'public/routes.html'))
-// );
-
-app.listen(PORT, () =>
-    console.log('listening at http://localhost:${PORT}')
-);
+// pool.connect();

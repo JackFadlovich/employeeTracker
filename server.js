@@ -8,7 +8,7 @@
 // application.use(express.urlencoded({ extended: false}));
 // application.use(express.json());
 
-const pool = new Pool( 
+const pool = new pool( 
 
     user, 'postgres,',
     password, '12345',

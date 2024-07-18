@@ -1,38 +1,39 @@
-const { prompt } = require("inquirer");
+const { prompt, default: inquirer } = require("inquirer");
 const { express } = require('express');
-const { viewEmp } = require('queries.js')
-//const postgres = require('postgres');
+const { viewDept, viewRole, viewEmp } = require('./queries.js');
+//const { postgres } = require('postgres');
 
 
-// //Syntax for switch statments
-// switch(expression) {
-//     case x:
-//       // code block
-//       break;
-//     case y:
-//       // code block
-//       break;
-//     default:
-//       // code block
-//   }
-
-
-
+const mainMenu = () => {
     prompt([
-        {
-            type: 'list',
-            message: 'Select from the following options',
-            name: 'options',
-            choices: ['view all depts', 'view all roles', 'view all employees', 'add a dept', 'add a role', 'add an employee', 'update employee role' ] 
-        }
+    {
+        type: 'list',
+        name: 'action',
+        message: 'please select from the following options',
+        choices: ['view all depts', 'view all roles', 'view all employees', 'add a dept', 'add a role', 'add an employee', 'update employee role']
+}
+
+
+]).then((answer) => {
+    switch (answer.action) {
+        case 'view all depts':
+            viewDept();
+            break;
+        case 'view all roles':
+            viewRole();
+            break;
+        case 'view all employees':
+            viewEmp()
+            break;
         
 
-    ])
-    .then
-        switch(options) {
+    }
+}
 
+)
 
-        }
-
-
+}
     
+
+mainMenu();
+

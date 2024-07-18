@@ -1,6 +1,6 @@
 const { prompt } = require("inquirer");
 const { express } = require('express');
-express = require('express');
+const { viewEmp } = require('queries.js')
 //const postgres = require('postgres');
 
 
@@ -33,3 +33,6 @@ express = require('express');
 
 
         }
+
+
+    

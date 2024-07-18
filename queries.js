@@ -15,9 +15,31 @@ const pool = new Pool(
   )
   
   const viewEmp =  async () => {
-        const { rows } = await pool.query("SELECT * FROM employees");
+        const { rows } = await pool.query("SELECT * FROM EMPLOYEES");
         console.log(rows)
 
   };
 
-  viewEmp();
+const viewRole = async () => {
+  const { rows } = await pool.query("SELECT * FROM ROLES")
+  console.log(rows)
+
+};
+
+
+const viewDept = async () => {
+  const { rows } = await pool.query("SELECT * FROM DEPARTMENTS")
+  console.log(rows)
+};
+
+
+
+
+
+
+module.exports = { 
+  viewEmp, 
+  viewRole,
+  viewDept
+}
+

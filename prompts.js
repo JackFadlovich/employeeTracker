@@ -25,13 +25,21 @@ const mainMenu = () => {
         case 'view all employees':
             viewEmp()
             break;
-        
-
+        case 'add a dept':
+            addDept()
+            break;
+        case 'addRole':
+            addRole()
+            break;
+        case 'addEmp':
+            addEmp()
+            break;
+        case 'updateEmpRole':
+            updateEmpRole()
+            break;
     }
 }
-
 )
-
 }
     
 

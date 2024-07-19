@@ -1,4 +1,6 @@
-const { Pool } = require('pg');
+const { default: inquirer } = require('inquirer');
+const { connect } = require('mssql');
+const { Pool, Connection } = require('pg');
 
 
 // pool (connect);
@@ -14,6 +16,7 @@ const pool = new Pool(
     console.log(`Connected to database.`)
   )
   
+  //view functions
   const viewEmp =  async () => {
         const { rows } = await pool.query("SELECT * FROM EMPLOYEES");
         console.log(rows)
@@ -34,12 +37,130 @@ const viewDept = async () => {
 
 
 
+//add fuctions
+
+const addEmp = async () => {
+  const empQuestions = [
+    {
+        type: 'input',
+        name: 'firstName',
+        message: 'Enter their first name'
+    },
+    {
+        type: 'input',
+        name: 'lastName',
+        message: 'enter their last name'
+
+    },
+    {
+        type: 'input',
+        name: 'salary',
+        message: 'enter their salary'
+    },
+    {
+        type: 'input',
+        name: 'managerID',
+        message: 'Add the ID number of their manager'
+    }
+  ];
+    inquirer.prompt(empQuestions).then((answers) =>{
+      const { firstName, lastName, salary, managerID } = empQuestions; 
+
+
+      const query = ' INSERT INTO  employees ( firstName, lastName, salary, managerID) VALUES ( ?, ?, ?,)';
+      Connection.query(query, [firstName, lastName, salary, managerID], (err, results) => {
+
+          if (err) throw err;
+          console.log('Data inserted successfully:', results);
+      }
+
+      
+      )
+
+    mainMenu();
+    }
+  )
+};
+
+const addRole = async () => {
+  const roleQuestions = [
+//name , salary, dept
+    {
+      type: 'input',
+      name: 'name',
+      message: 'enter the name of the role'
+    },
+    {
+      type: 'input',
+      name: 'salary',
+      message: 'enter the salary for this role'
+    },
+    {
+      type: 'input',
+      name: 'dept',
+      message: 'what dept does this role belong in' 
+    },
+
+    inquirer.prompt(roleQuestions).then((answers) => {
+      const { name, salary, dept } = roleQuestions
+
+
+      const query = 'INSERT INTO roles ( name, salary, dept) VALUES (?, ?, ?)';
+      Connection.query(query, [ name, salary, dept], (err, results) =>
+      {
+          if (err) throw err;
+          console.log('data inserted succesfully');
+
+
+          mainMenu();
+      }
+      )
+    }
+  )
+  ]
+};
+
+
+const addDept = async () => {
+  const deptQuestions = [
+{
+  type: 'input',
+  name: 'dept',
+  message: 'enter the name of the department you would like to add'
+},
+
+  inquirer.prompt(deptQuestions).then((answers) => {
+    const { dept } = deptQuestions
+
+    const query = 'INSERTED INTO dept VALUES (?)';
+    Connection.query(query, [ dept ], (err, results) =>
+    {
+      if (err) throw err;
+      console.log('data inserted succesfully');
+
+      mainMenu();
+    }
+
+
+    )
+  }
+  )]
+
+}
+
+
+
+
+
 
 
 
 module.exports = { 
   viewEmp, 
   viewRole,
-  viewDept
+  viewDept,
+  addEmp,
+  addRole,
+  addDept
 }
 

@@ -1,4 +1,4 @@
-const { default: inquirer } = require('inquirer');
+const { prompt } = require('inquirer');
 
 const { Pool, Connection } = require('pg');
 
@@ -129,13 +129,14 @@ const addDept = () => {
   type: 'input',
   name: 'dept',
   message: 'enter the name of the department you would like to add'
-},
+}
+  ];
 
-  inquirer.prompt(deptQuestions).then((answers) => {
-    const { dept } = deptQuestions;
+inquirer.prompt(deptQuestions).then((answers) => {
+    const {dept} = answers;
 
-    const query = 'INSERTED INTO dept (name) VALUES ($1)';
-    Connection.query(query, [ dept ], (err, res) =>
+    const query = 'INSERT INTO departments (name) VALUES ($1)';
+    pool.query(query, [dept], (err, res) =>
     {
       if (err) throw err;
       console.log('data inserted succesfully');
@@ -146,7 +147,7 @@ const addDept = () => {
 
     )
   }
-  )]
+  )
 
 }
 

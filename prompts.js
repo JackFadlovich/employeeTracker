@@ -1,4 +1,4 @@
-const { prompt, default: inquirer } = require("inquirer");
+const { prompt } = require("inquirer");
 const { express } = require('express');
 const { viewDept, viewRole, viewEmp, addDept, addRole, addEmp } = require('./queries.js');
 //const { postgres } = require('postgres');

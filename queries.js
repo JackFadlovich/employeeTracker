@@ -1,4 +1,4 @@
-const { prompt } = require('inquirer');
+const { default: inquirer } = require('inquirer');
 
 const { Pool, Connection } = require('pg');
 

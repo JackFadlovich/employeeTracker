@@ -141,7 +141,7 @@ inquirer.prompt(deptQuestions).then((answers) => {
       if (err) throw err;
       console.log('data inserted succesfully');
 
-      mainMenu();
+      // mainMenu();
     }
 
 

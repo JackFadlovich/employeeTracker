@@ -1,5 +1,5 @@
 const { default: inquirer } = require('inquirer');
-const { connect } = require('mssql');
+
 const { Pool, Connection } = require('pg');
 
 
@@ -15,7 +15,9 @@ const pool = new Pool(
     },
     console.log(`Connected to database.`)
   )
-  
+  pool.connect();
+
+
   //view functions
   const viewEmp =  async () => {
         const { rows } = await pool.query("SELECT * FROM EMPLOYEES");
@@ -39,7 +41,7 @@ const viewDept = async () => {
 
 //add fuctions
 
-const addEmp = async () => {
+const addEmp = () => {
   const empQuestions = [
     {
         type: 'input',
@@ -82,7 +84,7 @@ const addEmp = async () => {
   )
 };
 
-const addRole = async () => {
+const addRole = () => {
   const roleQuestions = [
 //name , salary, dept
     {
@@ -121,7 +123,7 @@ const addRole = async () => {
 };
 
 
-const addDept = async () => {
+const addDept = () => {
   const deptQuestions = [
 {
   type: 'input',
@@ -130,10 +132,10 @@ const addDept = async () => {
 },
 
   inquirer.prompt(deptQuestions).then((answers) => {
-    const { dept } = deptQuestions
+    const { dept } = deptQuestions;
 
-    const query = 'INSERTED INTO dept VALUES (?)';
-    Connection.query(query, [ dept ], (err, results) =>
+    const query = 'INSERTED INTO dept (name) VALUES ($1)';
+    Connection.query(query, [ dept ], (err, res) =>
     {
       if (err) throw err;
       console.log('data inserted succesfully');
@@ -147,9 +149,6 @@ const addDept = async () => {
   )]
 
 }
-
-
-
 
 
 

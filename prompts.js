@@ -1,6 +1,6 @@
 const { prompt, default: inquirer } = require("inquirer");
 const { express } = require('express');
-const { viewDept, viewRole, viewEmp } = require('./queries.js');
+const { viewDept, viewRole, viewEmp, addDept, addRole, addEmp } = require('./queries.js');
 //const { postgres } = require('postgres');
 
 
@@ -10,7 +10,7 @@ const mainMenu = () => {
         type: 'list',
         name: 'action',
         message: 'please select from the following options',
-        choices: ['view all depts', 'view all roles', 'view all employees', 'add a dept', 'add a role', 'add an employee', 'update employee role']
+        choices: ['view all depts', 'view all roles', 'view all employees', 'add a dept', 'add a role', 'add an employee']
 }
 
 
@@ -28,14 +28,11 @@ const mainMenu = () => {
         case 'add a dept':
             addDept()
             break;
-        case 'addRole':
+        case 'add a Role':
             addRole()
             break;
-        case 'addEmp':
+        case 'add an employee':
             addEmp()
-            break;
-        case 'updateEmpRole':
-            updateEmpRole()
             break;
     }
 }

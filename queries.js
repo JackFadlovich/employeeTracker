@@ -48,99 +48,47 @@ const viewDept = async () => {
 
 //add fuctions
 
-const addEmp = () => {
-  const empQuestions = [
-    {
-        type: 'input',
-        name: 'firstName',
-        message: 'Enter their first name'
-    },
-    {
-        type: 'input',
-        name: 'lastName',
-        message: 'enter their last name'
+const addEmp = async (first_Name, last_Name, role_id, manager_ID) => {
+  
 
-    },
-    {
-        type: 'input',
-        name: 'salary',
-        message: 'enter their salary'
-    },
-    {
-        type: 'input',
-        name: 'managerID',
-        message: 'Add the ID number of their manager'
-    }
-  ];
-    inquirer.prompt(empQuestions).then((answers) =>{
-      const { firstName, lastName, salary, managerID } = answers; 
-
-
-      const query = ' INSERT INTO  employees ( firstName, lastName, salary, managerID) VALUES ( $1, $2, $3 )';
-      Connection.query(query, [firstName, lastName, salary, managerID], (err, results) => {
+      const query = ' INSERT INTO employees ( first_Name, last_Name, role_id, manager_ID) VALUES ( $1, $2, $3, $4)';
+      await pool.query(query, [first_Name, last_Name, role_id, manager_ID]), (err, results) => {
 
           if (err) throw err;
           console.log('Data inserted successfully:', results);
       }
 
       
-      )
+      
 
    // mainMenu();
     }
-  )
-};
+//   )
+// };
 
-const addRole = () => {
-  const roleQuestions = [
-//name , salary, dept
-    {
-      type: 'input',
-      name: 'name',
-      message: 'enter the name of the role'
-    },
-    {
-      type: 'input',
-      name: 'salary',
-      message: 'enter the salary for this role'
-    },
-    {
-      type: 'input',
-      name: 'dept',
-      message: 'what dept does this role belong in' 
-    },
+const addRole = async (title, salary, dept) => {
 
-    inquirer.prompt(roleQuestions).then((answers) => {
-      const { name, salary, dept } = answers
+      const query = 'INSERT INTO roles ( title, salary, department_id) VALUES ( $1, $2, $3 )';
+      await pool.query(query, [title, salary, dept]);
+      console.log('data inserted sucessfully')
+
+      // pool.query(query, [ name, salary, dept], (err, results) =>
+      // {
+      //     if (err) throw err;
+      //     console.log('data inserted succesfully');
 
 
-      const query = 'INSERT INTO roles ( name, salary, dept) VALUES ( $1, $2, $3 )';
-      pool.query(query, [ name, salary, dept], (err, results) =>
-      {
-          if (err) throw err;
-          console.log('data inserted succesfully');
-
-
-         // mainMenu();
-      }
-      )
+      //    // mainMenu();
+      // }
+      // )
     }
-  )
-  ]
-};
+//   )
+//   ]
+// };
 
 
 const addDept = (dept) => {
-//   const deptQuestions = [
-// {
-//   type: 'input',
-//   name: 'dept',
-//   message: 'enter the name of the department you would like to add'
-// }
-//   ];
 
-// inquirer.prompt(deptQuestions).then((answers) => {
-//     const {dept} = answers;
 
     const query = 'INSERT INTO departments (name) VALUES ($1)';
     pool.query(query, [dept], (err, res) =>

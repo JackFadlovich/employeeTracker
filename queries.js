@@ -2,6 +2,7 @@ const inquirer  = require('inquirer');
 
 const { Pool, Connection } = require('pg');
 
+const {mainMenu} = require('./prompts.js')
 
 // pool (connect);
 const pool = new Pool(
@@ -23,11 +24,15 @@ const pool = new Pool(
         const { rows } = await pool.query("SELECT * FROM EMPLOYEES");
         console.log(rows)
 
+        //mainMenu();
+
   };
 
 const viewRole = async () => {
   const { rows } = await pool.query("SELECT * FROM ROLES")
   console.log(rows)
+
+  //mainMenu();
 
 };
 
@@ -35,6 +40,8 @@ const viewRole = async () => {
 const viewDept = async () => {
   const { rows } = await pool.query("SELECT * FROM DEPARTMENTS")
   console.log(rows)
+
+ mainMenu();
 };
 
 
@@ -66,10 +73,10 @@ const addEmp = () => {
     }
   ];
     inquirer.prompt(empQuestions).then((answers) =>{
-      const { firstName, lastName, salary, managerID } = empQuestions; 
+      const { firstName, lastName, salary, managerID } = answers; 
 
 
-      const query = ' INSERT INTO  employees ( firstName, lastName, salary, managerID) VALUES ( ?, ?, ?,)';
+      const query = ' INSERT INTO  employees ( firstName, lastName, salary, managerID) VALUES ( $1, $2, $3 )';
       Connection.query(query, [firstName, lastName, salary, managerID], (err, results) => {
 
           if (err) throw err;
@@ -79,7 +86,7 @@ const addEmp = () => {
       
       )
 
-    mainMenu();
+   // mainMenu();
     }
   )
 };
@@ -104,17 +111,17 @@ const addRole = () => {
     },
 
     inquirer.prompt(roleQuestions).then((answers) => {
-      const { name, salary, dept } = roleQuestions
+      const { name, salary, dept } = answers
 
 
-      const query = 'INSERT INTO roles ( name, salary, dept) VALUES (?, ?, ?)';
-      Connection.query(query, [ name, salary, dept], (err, results) =>
+      const query = 'INSERT INTO roles ( name, salary, dept) VALUES ( $1, $2, $3 )';
+      pool.query(query, [ name, salary, dept], (err, results) =>
       {
           if (err) throw err;
           console.log('data inserted succesfully');
 
 
-          mainMenu();
+         // mainMenu();
       }
       )
     }
@@ -123,17 +130,17 @@ const addRole = () => {
 };
 
 
-const addDept = () => {
-  const deptQuestions = [
-{
-  type: 'input',
-  name: 'dept',
-  message: 'enter the name of the department you would like to add'
-}
-  ];
+const addDept = (dept) => {
+//   const deptQuestions = [
+// {
+//   type: 'input',
+//   name: 'dept',
+//   message: 'enter the name of the department you would like to add'
+// }
+//   ];
 
-inquirer.prompt(deptQuestions).then((answers) => {
-    const {dept} = answers;
+// inquirer.prompt(deptQuestions).then((answers) => {
+//     const {dept} = answers;
 
     const query = 'INSERT INTO departments (name) VALUES ($1)';
     pool.query(query, [dept], (err, res) =>
@@ -141,15 +148,15 @@ inquirer.prompt(deptQuestions).then((answers) => {
       if (err) throw err;
       console.log('data inserted succesfully');
 
-      // mainMenu();
+    //mainMenu();
     }
 
 
     )
   }
-  )
+  //)
 
-}
+//}
 
 
 

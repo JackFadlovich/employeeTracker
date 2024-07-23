@@ -1,6 +1,7 @@
 const { prompt } = require("inquirer");
 const { express } = require('express');
 const { viewDept, viewRole, viewEmp, addDept, addRole, addEmp } = require('./queries.js');
+const inquirer  = require('inquirer');
 //const { postgres } = require('postgres');
 
 
@@ -26,7 +27,7 @@ const mainMenu = () => {
             viewEmp()
             break;
         case 'add a dept':
-            addDept()
+            addURMOM()
             break;
         case 'add a Role':
             addRole()
@@ -39,5 +40,34 @@ const mainMenu = () => {
 )
 }   
 
+
+
+
+
+
+const addURMOM =() => {
+    const deptQuestions = [
+    {
+      type: 'input',
+      name: 'dept',
+      message: 'enter the name of the department you would like to add'
+    }
+      ];
+    
+    inquirer.prompt(deptQuestions).then((answers) => {
+        const {dept} = answers;
+addDept (dept)
+    }).then(mainMenu)
+}
+
+
+
+
+
+
+
 mainMenu();
 
+module.exports = {
+    mainMenu
+}

@@ -1,3 +1,16 @@
+Walk through video:
+
+https://github.com/ZolarEclipse/employeeTracker
+
+
+
+
+
+
+
+
+
+
 AS A business owner
 I WANT to be able to view and manage the departments, roles, and employees in my company
 SO THAT I can organize and plan my business
@@ -21,4 +34,4 @@ WHEN I choose to update an employee role
 THEN I am prompted to select an employee to update and their new role and this information is updated in the database
 
 
-thank you to Patrick Quirk for helping me navigate the assignment
+thank you to Patrick Quirk for helping me

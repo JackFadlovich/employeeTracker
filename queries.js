@@ -22,7 +22,7 @@ const pool = new Pool(
   //view functions
   const viewEmp =  async () => {
         const { rows } = await pool.query("SELECT * FROM EMPLOYEES");
-        console.log(rows)
+        console.table(rows)
 
         //mainMenu();
 
@@ -30,7 +30,7 @@ const pool = new Pool(
 
 const viewRole = async () => {
   const { rows } = await pool.query("SELECT * FROM ROLES")
-  console.log(rows)
+  console.table(rows)
 
   //mainMenu();
 
@@ -39,9 +39,9 @@ const viewRole = async () => {
 
 const viewDept = async () => {
   const { rows } = await pool.query("SELECT * FROM DEPARTMENTS")
-  console.log(rows)
+  console.table(rows)
 
- mainMenu();
+// mainMenu();
 };
 
 
@@ -55,7 +55,7 @@ const addEmp = async (first_Name, last_Name, role_id, manager_ID) => {
       await pool.query(query, [first_Name, last_Name, role_id, manager_ID]), (err, results) => {
 
           if (err) throw err;
-          console.log('Data inserted successfully:', results);
+          console.table('Data inserted successfully:', results);
       }
 
       
@@ -70,21 +70,11 @@ const addRole = async (title, salary, dept) => {
 
       const query = 'INSERT INTO roles ( title, salary, department_id) VALUES ( $1, $2, $3 )';
       await pool.query(query, [title, salary, dept]);
-      console.log('data inserted sucessfully')
-
-      // pool.query(query, [ name, salary, dept], (err, results) =>
-      // {
-      //     if (err) throw err;
-      //     console.log('data inserted succesfully');
+      console.table('data inserted sucessfully')
 
 
-      //    // mainMenu();
-      // }
-      // )
     }
-//   )
-//   ]
-// };
+
 
 
 const addDept = (dept) => {
@@ -94,7 +84,7 @@ const addDept = (dept) => {
     pool.query(query, [dept], (err, res) =>
     {
       if (err) throw err;
-      console.log('data inserted succesfully');
+      console.table('data inserted succesfully');
 
     //mainMenu();
     }
@@ -107,6 +97,14 @@ const addDept = (dept) => {
 //}
 
 
+const updateEmp = (employees, role_id) => {
+const query = 'UPDATE employees SET role_id = ($2) WHERE id = ($1) '
+  pool.query(query, [employees, role_id])
+  console.table('updated employee information')
+
+
+}
+
 
 
 
@@ -116,6 +114,7 @@ module.exports = {
   viewDept,
   addEmp,
   addRole,
-  addDept
+  addDept,
+  updateEmp
 }
 

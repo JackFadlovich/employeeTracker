@@ -1,6 +1,6 @@
 const { prompt } = require("inquirer");
 const { express } = require('express');
-const { viewDept, viewRole, viewEmp, addDept, addRole, addEmp } = require('./queries.js');
+const { viewDept, viewRole, viewEmp, addDept, addRole, addEmp, updateEmp } = require('./queries.js');
 const inquirer  = require('inquirer');
 //const { postgres } = require('postgres');
 
@@ -11,35 +11,85 @@ const mainMenu = () => {
         type: 'list',
         name: 'action',
         message: 'please select from the following options',
-        choices: ['view all depts', 'view all roles', 'view all employees', 'add a dept', 'add a role', 'add an employee']
+        choices: ['view all depts', 'view all roles', 'view all employees', 'add a dept', 'add a role', 'add an employee', 'update employee']
 }
 
 
 ]).then((answer) => {
     switch (answer.action) {
         case 'view all depts':
-            viewDept();
+            viewingDept();
             break;
         case 'view all roles':
-            viewRole();
+            viewingRole();
             break;
         case 'view all employees':
-            viewEmp()
+            viewingEmp();
             break;
         case 'add a dept':
-            addURMOM()
+            addURMOM();
             break;
         case 'add a role':
             //console.log('amogus')
-             roleAdding()
+            roleAdding();
             break;
         case 'add an employee':
-            empAdding()
+            empAdding();
+            break;
+        case 'update employee':
+            empUpdate();
             break;
     }
 }
 )
 }   
+
+
+const viewingEmp =() => {
+viewEmp().then(mainMenu)
+
+}
+
+const viewingDept =() => {
+    viewDept().then(mainMenu)
+}
+
+
+const viewingRole =() => {
+    viewRole().then(mainMenu)
+}
+
+const empUpdate =() => {
+    const updatingEmp = [
+        {
+            type: 'input',
+            name: 'employees',
+            message: 'which employee would you like to update'
+
+        },
+        
+        
+        {
+type: 'input',
+name: 'role_id',
+message: 'please enter the new role id'
+        }
+    ];
+
+    inquirer.prompt(updatingEmp).then( (answers) => {
+
+        const {employees, role_id} = answers;
+    updateEmp (employees, role_id)
+    }
+
+).then(mainMenu)
+
+}
+
+
+
+
+
 
 
 
@@ -57,14 +107,6 @@ const addURMOM =() => {
 addDept (dept)
     }).then(mainMenu)
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -135,7 +177,6 @@ const empAdding =() => {
        await addEmp (first_Name, last_Name, role_id, manager_ID)
     }).then(mainMenu)
 }
-
 
 
 
